@@ -378,7 +378,9 @@ spec:
         echo "Adding the entitlement to the build"
       fi
 
-      VOLUME_MOUNTS+=("$ADDITIONAL_VOLUME_MOUNTS")
+      while read -r volume_mount; do
+        VOLUME_MOUNTS+=("--volume=$volume_mount")
+      done <<< "$ADDITIONAL_VOLUME_MOUNTS"
 
       ADDITIONAL_SECRET_PATH="/additional-secret"
       ADDITIONAL_SECRET_TMP="/tmp/additional-secret"
